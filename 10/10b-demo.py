@@ -31,7 +31,7 @@ class Coords:
             case _:
                 print("Unknown character")
 
-fstream = open("input.txt", 'r')
+fstream = open("demo.txt", 'r')
 lines = []
 line = fstream.readline()
 while line:
@@ -39,8 +39,8 @@ while line:
     line = fstream.readline()
 
 known_tiles = {}
-known_tiles[Coords(103, 20)] = 0 # the initial S
-initial_connections = [Coords(102, 20), Coords(103, 21)]
+known_tiles[Coords(4, 0)] = 0 # the initial S
+initial_connections = [Coords(3, 0), Coords(4, 1)]
 connections_to_check = []
 for tile in initial_connections:
     known_tiles[tile] = 1
@@ -66,12 +66,12 @@ for (y, line) in enumerate(lines):
             new_line += " "
     new_lines.append(new_line)
 
-outstream = open("output.txt", 'w')
+outstream = open("output-demo.txt", 'w')
 for line in new_lines:
     outstream.write(line)
     outstream.write("\n")
 
-lines[20] = lines[20].replace("S", "7") #replace the S with a 7
+lines[0] = lines[0].replace("S", "7") #replace the S with a 7
 tiles_within_loop = 0
 tiles_within_loop_coords = []
 for (y, line) in enumerate(lines):
@@ -81,11 +81,10 @@ for (y, line) in enumerate(lines):
         # for each tile, go straight UP. We are in the loop if we cross an odd number of pipes.
         # we cross a pipe if we hit a - or a matched 7/L or a matched F/J
         tiles_touched = {"-": 0, "|": 0, "7": 0, "J": 0, "F": 0, "L": 0, ".": 0}
-        for test_x in range(x):
-            if Coords(test_x, y) in known_tiles:
-                tiles_touched[lines[y][test_x]] += 1
-        pipes_crossed = tiles_touched["|"] + tiles_touched["J"] + tiles_touched["L"]                  
-        # pipes_crossed = tiles_touched["|"] + max(tiles_touched["7"], tiles_touched["L"]) + max(tiles_touched["F"], tiles_touched["J"])
+        for test_y in range(y):
+            if Coords(x, test_y) in known_tiles:
+                tiles_touched[lines[test_y][x]] += 1
+        pipes_crossed = tiles_touched["-"] + max(tiles_touched["7"], tiles_touched["L"]) + max(tiles_touched["F"], tiles_touched["J"])
         # pipes_crossed = tiles_touched["-"] + (tiles_touched["7"] + tiles_touched["L"] + tiles_touched["F"] + tiles_touched["J"]) / 2
         if pipes_crossed % 2 == 1:
             tiles_within_loop += 1
@@ -102,9 +101,7 @@ for (y, line) in enumerate(lines):
             new_line += new_lines[y][x]
     new_new_lines.append(new_line)
 
-outstream = open("output2.txt", 'w')
+outstream = open("output2-demo.txt", 'w')
 for line in new_new_lines:
     outstream.write(line)
     outstream.write("\n")
-
-print(tiles_within_loop)

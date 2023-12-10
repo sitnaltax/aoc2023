@@ -55,7 +55,7 @@ while len(connections_to_check) > 0:
 
 print(max(known_tiles.values()))
 
-lines[20] = lines[2].replace("S", "7") #replace the S with a 7
+lines[20] = lines[20].replace("S", "7") #replace the S with a 7
 tiles_within_loop = 0
 for (y, line) in enumerate(lines):
     for x in range(len(line)):
