@@ -13,7 +13,7 @@ class Coords:
 def shortest_distance(coords1, coords2):
     return abs(coords1.x - coords2.x) + abs(coords1.y - coords2.y)
 
-fstream = open("input.txt", 'r')
+fstream = open("/home/rob/aoc2023/11/input.txt", 'r')
 lines = []
 line = fstream.readline()
 while line:
