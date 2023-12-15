@@ -27,6 +27,7 @@ def count_of_possible_patterns(pattern, criteria):
     if pattern.find("?") == -1:
         return 1 if evaluate_pattern_exactly(pattern, criteria) else 0
     else:
+        total_of_children = 0
         return count_of_possible_patterns(pattern.replace("?", ".", 1), criteria) + count_of_possible_patterns(pattern.replace("?", "#", 1), criteria)    
 
 fstream = open("/home/rob/aoc2023/12/input.txt", 'r')
